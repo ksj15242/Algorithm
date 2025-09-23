@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        vector<string> words;
+        string tmp;
+        istringstream iss(s);
+        while (iss >> tmp) {
+            words.push_back(tmp);
+        }
+
+        if (pattern.size() != words.size())
+            return false;
+
+        int n = pattern.size();
+
+        unordered_map<char, int> um;
+        unordered_map<string, int> um2;
+
+        for (int i = 0; i < n; i++) {
+            if (um[pattern[i]] != um2[words[i]]) {
+                return false;
+            }
+
+            um[pattern[i]] = i + 1;
+            um2[words[i]] = i + 1;
+        }
+
+        return true;
+    }
+};
