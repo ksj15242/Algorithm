@@ -1,0 +1,32 @@
+class Solution {
+public:
+    struct Compare {
+        bool operator()(const pair<int, int>& a, const pair<int, int>& b) {
+            return a.second > b.second;
+        }
+    };
+
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+
+        unordered_map<int, int> um;
+        for (const auto& num : nums) {
+            um[num]++;
+        }
+
+        priority_queue<pair<int, int>, vector<pair<int, int>>, Compare> pq;
+        for (const auto& [num, count] : um) {
+            pq.push({num, count});
+            if (pq.size() > k)
+                pq.pop();
+        }
+
+        vector<int> res;
+        while (!pq.empty()) {
+            const auto& [num, count] = pq.top();
+            res.push_back(num);
+            pq.pop();
+        }
+
+        return res;
+    }
+};
