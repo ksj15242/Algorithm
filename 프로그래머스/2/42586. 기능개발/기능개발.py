@@ -1,5 +1,4 @@
 def solution(progresses, speeds):
-    
     availableDays = []
     for progress, speed in zip(progresses, speeds):
         day = ((100-progress)+(speed-1))//speed
